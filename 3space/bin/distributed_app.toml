@@ -1,6 +1,6 @@
 broadcastAddress = "192.168.0.255"
 [[node]]
-  host = "gr01"
+  host = "audio"
   role = "simulator"
 [[node]]
   host = "gr02"
