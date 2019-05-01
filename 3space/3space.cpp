@@ -36,12 +36,15 @@ public:
   int changeTheta, changePhi, changeScale;
   int currentGroup;
 
+  int joystickModifier;
+
   void onCreate() {
     nav().pos(Vec3f{0, 0, 20}).faceToward({0, 0, 0}, {0, 1, 0});
     lens().near(0.01).far(1000).eyeSep(0.02);
 
     theta = phi = 0;
     changeTheta = changePhi = changeScale = 0;
+    joystickModifier = 0;
 
     state().pose = nav();
     state().camera.setIdentity();
@@ -217,7 +220,6 @@ public:
     float x;
     float mNavSpeed = 0.125f;
     float mNavTurnSpeed = 2.f;
-    int joystickModifier = 0;
     // m.print();
     if (m.addressPattern() == "/mx") {
       m >> x;
