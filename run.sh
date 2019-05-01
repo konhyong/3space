@@ -90,7 +90,7 @@ APP_NAME=${APP_FILE%.*} # remove extension once, assuming .cpp
   mkdir -p ${BUILD_TYPE}
   cd ${BUILD_TYPE}
 
-  cmake -Wno-deprecated -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DAL_APP_FILE=../../../${APP_FILE} -DAL_VERBOSE_OUTPUT=${VERBOSE_FLAG} ${AL_LIB_PATH}/cmake/single_file > cmake_log.txt
+  cmake -Wno-deprecated -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DBUILD_EXAMPLES=0 -DAL_APP_FILE=../../../${APP_FILE} -DAL_VERBOSE_OUTPUT=${VERBOSE_FLAG} ${AL_LIB_PATH}/cmake/single_file > cmake_log.txt
   make -j$PROC_FLAG
 )
 
