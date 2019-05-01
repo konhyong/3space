@@ -214,7 +214,116 @@ public:
   } // onKeyUp
 
   void onMessage(osc::Message& m) {
-    m.print();
+    float x;
+    int joystickModifier = 0;
+    // m.print();
+    if (m.addressPattern() == "/mx") {
+      m >> x;
+      nav().moveR(-x * mNavSpeed);
+    } else if (m.addressPattern() == "/my") {
+      m >> x;
+      nav().moveU(x * mNavSpeed);
+    } else if (m.addressPattern() == "/mz") {
+      m >> x;
+      nav().spinR(x * mNavTurnSpeed);
+    } else if (m.addressPattern() == "/tx") {
+      m >> x;
+      nav().moveF(-x * mNavSpeed);
+    } else if (m.addressPattern() == "/ty") {
+      m >> x;
+      nav().spinU(x * mNavTurnSpeed);
+    } else if (m.addressPattern() == "/tz") {
+      m >> x;
+      nav().spinF(x * mNavTurnSpeed);
+    } else if (m.addressPattern() == "/b1") {
+      m >> x;
+      if (x == 1) {
+        changeTheta = 1;
+      } else {
+        changeTheta = 0;
+      }
+    } else if (m.addressPattern() == "/b2") {
+      m >> x;
+      if (x == 1) {
+        changeTheta = -1;
+      } else {
+        changeTheta = 0;
+      }
+    } else if (m.addressPattern() == "/b3") {
+      m >> x;
+      if (x == 1) {
+        changePhi = -1;
+      } else {
+        changePhi = 0;
+      }
+    } else if (m.addressPattern() == "/b4") {
+      m >> x;
+      if (x == 1) {
+        changePhi = 1;
+      } else {
+        changePhi = 0;
+      }
+    } else if (m.addressPattern() == "/b5") {
+      m >> x;
+      if (x == 1) {
+        joystickModifier |= 1;
+      } else {
+        joystickModifier ^= 1;
+      }
+    } else if (m.addressPattern() == "/b6") {
+      m >> x;
+      if (x == 1) {
+        if (joystickModifier == 0) {
+          // ++state->depth;
+        } else if (joystickModifier == 1) {
+          state->activeGroup += 1; if (state->activeGroup >= groups.size()) state->activeGroup = 0;
+        } else if (joystickModifier == 2) {
+          state->changeScale = 1;
+        }
+      }
+      else {
+        state->changeScale = 0;
+      }
+    } else if (m.addressPattern() == "/b7") {
+      m >> x;
+      if (x == 1) {
+        joystickModifier |= 2;
+      } else {
+        joystickModifier ^= 2;
+      }
+    } else if (m.addressPattern() == "/b8") {
+      m >> x;
+      if (x == 1) {
+        if (joystickModifier == 0) {
+          --state->depth;
+        } else if (joystickModifier == 1) {
+          state->activeGroup -= 1; if (state->activeGroup < 0) state->activeGroup = groups.size() - 1;
+        } else if (joystickModifier == 2) {
+          state->changeScale = -1;
+        }
+      }
+      else {
+        state->changeScale = 0;
+      }
+    } else if (m.addressPattern() == "/b9") {
+      m >> x;
+      if (x == 1) {
+        nav().home();
+        theta = 0;
+        phi = 0;
+      }
+    } else if (m.addressPattern() == "/b10") {
+      m >> x;
+      if (x == 1) {
+        if (joystickModifier == 0)
+          state->showOrigin = !state->showOrigin;
+        else if (joystickModifier == 1) {
+          state->showStatic = !state->showStatic;
+        }
+      }
+    } else {
+      m.print();
+    }
   }
 };
 
