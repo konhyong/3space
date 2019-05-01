@@ -114,29 +114,42 @@ public:
       buffer.unbind();
 
       currentGroup = state().activeGroup;
+
+      cout << "showing group: " << currentGroup << endl;
     }
   }
 
   void onDraw(Graphics& g){
-    if(role() == ROLE_RENDERER || role() == ROLE_DESKTOP) {
-      g.clear(0, 0, 0);
+    g.clear(0, 0, 0);
 
-      g.depthTesting(true);
-      // g.lighting(true);
+    g.depthTesting(true);
+    // g.lighting(true);
 
-      g.pushMatrix();
-        g.shader(main_shader);
-        g.shader().uniform("camera", state().camera);
-        g.shader().uniform("scale", state().scale);
-        g.shader().uniform("groupType", groups[state().activeGroup].type);
-        g.shader().uniform("showOrigin", state().showOrigin);
-        g.update();
+    g.pushMatrix();
+      g.shader(main_shader);
+      g.shader().uniform("camera", state().camera);
+      g.shader().uniform("scale", state().scale);
+      g.shader().uniform("groupType", groups[state().activeGroup].type);
+      g.shader().uniform("showOrigin", state().showOrigin);
+      g.update();
 
-        g.polygonMode(Graphics::FILL);
+      g.polygonMode(Graphics::FILL);
 
-        tetra.vao().bind();
-        std::vector<Mat4f>& transforms = groups[state().activeGroup].transforms;
+      tetra.vao().bind();
+      std::vector<Mat4f>& transforms = groups[state().activeGroup].transforms;
 
+      if(tetra.indices().size()) {
+        tetra.indexBuffer().bind();
+        glDrawElementsInstanced(GL_TRIANGLES, tetra.indices().size(),
+                                GL_UNSIGNED_INT, 0, transforms.size());
+      }
+      else {
+        glDrawArraysInstanced(GL_TRIANGLES, 0, tetra.vertices().size(), transforms.size());
+      }
+
+      if(state().showStatic) {
+        g.polygonMode(Graphics::LINE);
+        g.shader().uniform("camera", Mat4f::identity());
         if(tetra.indices().size()) {
           tetra.indexBuffer().bind();
           glDrawElementsInstanced(GL_TRIANGLES, tetra.indices().size(),
@@ -145,21 +158,8 @@ public:
         else {
           glDrawArraysInstanced(GL_TRIANGLES, 0, tetra.vertices().size(), transforms.size());
         }
-
-        if(state().showStatic) {
-          g.polygonMode(Graphics::LINE);
-          g.shader().uniform("camera", Mat4f::identity());
-          if(tetra.indices().size()) {
-            tetra.indexBuffer().bind();
-            glDrawElementsInstanced(GL_TRIANGLES, tetra.indices().size(),
-                                    GL_UNSIGNED_INT, 0, transforms.size());
-          }
-          else {
-            glDrawArraysInstanced(GL_TRIANGLES, 0, tetra.vertices().size(), transforms.size());
-          }
-        }
-      g.popMatrix();
-    }
+      }
+    g.popMatrix();
   }
 
   // KEYBOARD commands local
