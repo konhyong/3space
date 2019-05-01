@@ -126,7 +126,9 @@ public:
   }
 
   void onDraw(Graphics& g){
-    g.clear(0, 0, 0);
+    auto e = pp_render.current_eye;
+    if (e == 0) g.clear(1, 0, 0);
+    else g.clear(0, 0, 0);
 
     g.depthTesting(true);
     // g.lighting(true);
