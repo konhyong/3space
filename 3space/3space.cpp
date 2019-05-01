@@ -82,9 +82,6 @@ public:
 
     buffer.data(groups[state().activeGroup].transforms.size() * sizeof(Mat4f), groups[state().activeGroup].transforms.data());
     buffer.unbind();
-
-    if(hasRole(ROLE_SIMULATOR))
-      stereo(false);
   }
 
   void updateCamera() {
@@ -230,7 +227,8 @@ public:
 int main() {
   SpaceApp app;
   app.stereo(true);
-  app.displayMode(app.displayMode() | Window::STEREO_BUF);
+  if (!sphere::is_simulator())
+    app.displayMode(app.displayMode() | Window::STEREO_BUF);
   app.print();
   app.start();
 }
