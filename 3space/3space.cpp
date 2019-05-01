@@ -126,9 +126,7 @@ public:
   }
 
   void onDraw(Graphics& g){
-    auto e = pp_render.current_eye;
-    if (e == 0) g.clear(1, 0, 0);
-    else g.clear(0, 0, 0);
+    g.clear(0, 0, 0);
 
     g.depthTesting(true);
     // g.lighting(true);
@@ -136,8 +134,10 @@ public:
     g.pushMatrix();
       g.shader(main_shader);
 
-      g.shader().uniform("eye_sep", lens().eyeSep() * pp_render.current_eye / 2.0f);
-      g.shader().uniform("foc_len", lens().focalLength());
+      float e = pp_render.current_eye? -1 : 1;
+
+      g.shader().uniform("eye_sep", e*1.f);//lens().eyeSep() * e / 2.0f);
+      g.shader().uniform("foc_len", 1.f);//lens().focalLength());
 
       g.shader().uniform("camera", state().camera);
       g.shader().uniform("scale", state().scale);
