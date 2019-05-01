@@ -193,6 +193,10 @@ public:
 
     updateCamera();
   } // onKeyUp
+
+  void onMessage(osc::Message& m) {
+    m.print();
+  }
 };
 
 int main() {
