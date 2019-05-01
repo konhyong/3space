@@ -146,7 +146,7 @@ public:
 
       g.polygonMode(Graphics::FILL);
 
-      cout << "eye: " << eye_to_render << endl;
+      cout << "eye: " << pp_render.current_eye << endl;
       cout << "render_stereo: " << render_stereo << endl;
       cout << "running_in_sphere_renderer: " << running_in_sphere_renderer << endl;
       cout << "window_is_stereo_buffered: " << window_is_stereo_buffered << endl;
