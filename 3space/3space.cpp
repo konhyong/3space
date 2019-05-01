@@ -221,16 +221,16 @@ public:
     // m.print();
     if (m.addressPattern() == "/mx") {
       m >> x;
-      nav().moveR(-x * mNavSpeed);
+      nav().moveR(x * mNavSpeed);
     } else if (m.addressPattern() == "/my") {
       m >> x;
       nav().moveU(x * mNavSpeed);
     } else if (m.addressPattern() == "/mz") {
       m >> x;
-      nav().spinR(x * mNavTurnSpeed);
+      nav().moveF(x * mNavSpeed);
     } else if (m.addressPattern() == "/tx") {
       m >> x;
-      nav().moveF(-x * mNavSpeed);
+      nav().spinR(x * mNavTurnSpeed);
     } else if (m.addressPattern() == "/ty") {
       m >> x;
       nav().spinU(x * mNavTurnSpeed);
@@ -323,9 +323,9 @@ public:
           state().showStatic = !state().showStatic;
         }
       }
-    } else {
+    }// else {
       m.print();
-    }
+    //}
   }
 };
 
