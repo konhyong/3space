@@ -142,6 +142,8 @@ public:
 
       g.polygonMode(Graphics::FILL);
 
+      cout << eye_to_render << endl;
+
       tetra.vao().bind();
       std::vector<Mat4f>& transforms = groups[state().activeGroup].transforms;
 
