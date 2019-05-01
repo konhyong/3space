@@ -142,7 +142,11 @@ public:
 
       g.polygonMode(Graphics::FILL);
 
-      cout << eye_to_render << endl;
+      cout << "eye: " << eye_to_render << endl;
+      cout << "render_stereo: " << render_stereo << endl;
+      cout << "running_in_sphere_renderer: " << running_in_sphere_renderer << endl;
+      cout << "window_is_stereo_buffered: " << window_is_stereo_buffered << endl;
+
 
       tetra.vao().bind();
       std::vector<Mat4f>& transforms = groups[state().activeGroup].transforms;
