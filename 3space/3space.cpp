@@ -218,6 +218,7 @@ public:
 
 int main() {
   SpaceApp app;
+  app.stereo(true);
   app.displayMode(app.displayMode() | Window::STEREO_BUF);
   app.print();
   app.start();
