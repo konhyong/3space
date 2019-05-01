@@ -278,6 +278,7 @@ public:
         if (joystickModifier == 0) {
           // ++state->depth;
         } else if (joystickModifier == 1) {
+          cout << "changing activeGroup" << endl;
           state().activeGroup += 1; if (state().activeGroup >= groups.size()) state().activeGroup = 0;
         } else if (joystickModifier == 2) {
           changeScale = 1;
@@ -299,6 +300,7 @@ public:
         if (joystickModifier == 0) {
           // --state->depth;
         } else if (joystickModifier == 1) {
+          cout << "changing activeGroup" << endl;
           state().activeGroup -= 1; if (state().activeGroup < 0) state().activeGroup = groups.size() - 1;
         } else if (joystickModifier == 2) {
           changeScale = -1;
@@ -325,6 +327,7 @@ public:
       }
     }// else {
       m.print();
+      cout << joystickModifier << endl;
     //}
   }
 };
