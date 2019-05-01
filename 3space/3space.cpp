@@ -218,27 +218,25 @@ public:
 
   void onMessage(osc::Message& m) {
     float x;
-    float mNavSpeed = 0.125f;
-    float mNavTurnSpeed = 2.f;
     // m.print();
     if (m.addressPattern() == "/mx") {
       m >> x;
-      nav().moveR(x * mNavSpeed);
+      nav().moveR(x);
     } else if (m.addressPattern() == "/my") {
       m >> x;
-      nav().moveU(x * mNavSpeed);
+      nav().moveU(x);
     } else if (m.addressPattern() == "/mz") {
       m >> x;
-      nav().moveF(x * mNavSpeed);
+      nav().moveF(x);
     } else if (m.addressPattern() == "/tx") {
       m >> x;
-      nav().spinR(x * mNavTurnSpeed);
+      nav().spinR(x);
     } else if (m.addressPattern() == "/ty") {
       m >> x;
-      nav().spinU(x * mNavTurnSpeed);
+      nav().spinU(x);
     } else if (m.addressPattern() == "/tz") {
       m >> x;
-      nav().spinF(x * mNavTurnSpeed);
+      nav().spinF(x);
     } else if (m.addressPattern() == "/b1") {
       m >> x;
       if (x == 1) {
@@ -280,7 +278,6 @@ public:
         if (joystickModifier == 0) {
           // ++state->depth;
         } else if (joystickModifier == 1) {
-          cout << "changing activeGroup" << endl;
           state().activeGroup += 1; if (state().activeGroup >= groups.size()) state().activeGroup = 0;
         } else if (joystickModifier == 2) {
           changeScale = 1;
@@ -302,7 +299,6 @@ public:
         if (joystickModifier == 0) {
           // --state->depth;
         } else if (joystickModifier == 1) {
-          cout << "changing activeGroup" << endl;
           state().activeGroup -= 1; if (state().activeGroup < 0) state().activeGroup = groups.size() - 1;
         } else if (joystickModifier == 2) {
           changeScale = -1;
@@ -327,10 +323,9 @@ public:
           state().showStatic = !state().showStatic;
         }
       }
-    }// else {
+    } else {
       m.print();
-      cout << joystickModifier << endl;
-    //}
+    }
   }
 };
 
