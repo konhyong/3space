@@ -38,7 +38,7 @@ public:
 
   void onCreate() {
     nav().pos(Vec3f{0, 0, 20}).faceToward({0, 0, 0}, {0, 1, 0});
-    lens().near(0.01).far(1000).eyeSep(0.2).focalLength(1);
+    lens().near(0.01).far(1000).eyeSep(0.02);
 
     theta = phi = 0;
     changeTheta = changePhi = changeScale = 0;
@@ -137,8 +137,8 @@ public:
       if(render_stereo) {
         float e = pp_render.current_eye? -1 : 1;
         g.shader().uniform("is_omni", 1.f);
-        g.shader().uniform("eye_sep", e*1.f);//lens().eyeSep() * e / 2.0f);
-        g.shader().uniform("foc_len", 1.f);//lens().focalLength());
+        g.shader().uniform("eye_sep", lens().eyeSep() * e / 2.0f);
+        g.shader().uniform("foc_len", lens().focalLength());
       }
 
       g.shader().uniform("camera", state().camera);
