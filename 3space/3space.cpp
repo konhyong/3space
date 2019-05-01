@@ -112,7 +112,9 @@ public:
   }
 
   void onAnimate(double dt){
-    nav().set(state().pose);
+    if(role() & ROLE_RENDERER) {
+      nav().set(state().pose);
+    }
 
     if(currentGroup != state().activeGroup) {
       buffer.bind();
