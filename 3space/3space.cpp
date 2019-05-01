@@ -215,6 +215,8 @@ public:
 
   void onMessage(osc::Message& m) {
     float x;
+    float mNavSpeed = 0.125f;
+    float mNavTurnSpeed = 2.f;
     int joystickModifier = 0;
     // m.print();
     if (m.addressPattern() == "/mx") {
@@ -276,13 +278,13 @@ public:
         if (joystickModifier == 0) {
           // ++state->depth;
         } else if (joystickModifier == 1) {
-          state->activeGroup += 1; if (state->activeGroup >= groups.size()) state->activeGroup = 0;
+          state().activeGroup += 1; if (state().activeGroup >= groups.size()) state().activeGroup = 0;
         } else if (joystickModifier == 2) {
-          state->changeScale = 1;
+          changeScale = 1;
         }
       }
       else {
-        state->changeScale = 0;
+        changeScale = 0;
       }
     } else if (m.addressPattern() == "/b7") {
       m >> x;
@@ -295,15 +297,15 @@ public:
       m >> x;
       if (x == 1) {
         if (joystickModifier == 0) {
-          --state->depth;
+          // --state->depth;
         } else if (joystickModifier == 1) {
-          state->activeGroup -= 1; if (state->activeGroup < 0) state->activeGroup = groups.size() - 1;
+          state().activeGroup -= 1; if (state().activeGroup < 0) state().activeGroup = groups.size() - 1;
         } else if (joystickModifier == 2) {
-          state->changeScale = -1;
+          changeScale = -1;
         }
       }
       else {
-        state->changeScale = 0;
+        changeScale = 0;
       }
     } else if (m.addressPattern() == "/b9") {
       m >> x;
@@ -316,9 +318,9 @@ public:
       m >> x;
       if (x == 1) {
         if (joystickModifier == 0)
-          state->showOrigin = !state->showOrigin;
+          state().showOrigin = !state().showOrigin;
         else if (joystickModifier == 1) {
-          state->showStatic = !state->showStatic;
+          state().showStatic = !state().showStatic;
         }
       }
     } else {
