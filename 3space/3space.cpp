@@ -133,6 +133,10 @@ public:
 
     g.pushMatrix();
       g.shader(main_shader);
+      
+      s.uniform("eye_sep", mLens.eyeSep() * mEye / 2.0f);
+      s.uniform("foc_len", mLens.focalLength());
+
       g.shader().uniform("camera", state().camera);
       g.shader().uniform("scale", state().scale);
       g.shader().uniform("groupType", groups[state().activeGroup].type);
@@ -218,8 +222,10 @@ public:
 
 int main() {
   SpaceApp app;
-  app.stereo(true);
-  app.displayMode(app.displayMode() | Window::STEREO_BUF);
+  if(app.hasRole(ROLE_RENDERER)) {
+    app.stereo(true);
+    app.displayMode(app.displayMode() | Window::STEREO_BUF);
+  }
   app.print();
   app.start();
 }
