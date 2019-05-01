@@ -38,7 +38,7 @@ public:
 
   void onCreate() {
     nav().pos(Vec3f{0, 0, 20}).faceToward({0, 0, 0}, {0, 1, 0});
-    lens().near(0.01).far(1000);
+    lens().near(0.01).far(1000).eyeSep(0.2).focalLength(1);
 
     theta = phi = 0;
     changeTheta = changePhi = changeScale = 0;
@@ -137,6 +137,7 @@ public:
       g.shader().uniform("scale", state().scale);
       g.shader().uniform("groupType", groups[state().activeGroup].type);
       g.shader().uniform("showOrigin", state().showOrigin);
+
       g.update();
 
       g.polygonMode(Graphics::FILL);
