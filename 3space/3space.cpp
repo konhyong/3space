@@ -134,8 +134,8 @@ public:
     g.pushMatrix();
       g.shader(main_shader);
 
-      s.uniform("eye_sep", lens().eyeSep() * pp_render.current_eye / 2.0f);
-      s.uniform("foc_len", lens().focalLength());
+      g.shader().uniform("eye_sep", lens().eyeSep() * pp_render.current_eye / 2.0f);
+      g.shader().uniform("foc_len", lens().focalLength());
 
       g.shader().uniform("camera", state().camera);
       g.shader().uniform("scale", state().scale);
@@ -222,7 +222,7 @@ public:
 
 int main() {
   SpaceApp app;
-  if(app.hasRole(ROLE_RENDERER)) {
+  if(app.hasRole(DistributedApp<State>::ROLE_RENDERER)) {
     app.stereo(true);
     app.displayMode(app.displayMode() | Window::STEREO_BUF);
   }
