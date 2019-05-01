@@ -112,10 +112,10 @@ public:
   }
 
   void onAnimate(double dt){
+    cout << state().pose << endl;
+    cout << " " << state().activeGroup << endl;
     if(role() & ROLE_RENDERER) {
       nav().set(state().pose);
-      cout << state().pose << endl;
-      cout << " " << state().activeGroup << endl;
     }
 
     if(currentGroup != state().activeGroup) {
