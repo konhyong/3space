@@ -112,11 +112,6 @@ public:
   }
 
   void onAnimate(double dt){
-    cout << "state: ";
-    state().pose.print();
-    cout << "nav: ";
-    nav().print();
-    cout << "group: " << state().activeGroup << endl;
     if(role() & ROLE_RENDERER) {
       nav().set(state().pose);
     }
@@ -170,6 +165,8 @@ public:
           glDrawArraysInstanced(GL_TRIANGLES, 0, tetra.vertices().size(), transforms.size());
         }
       }
+
+      g.polygonMode(Graphics::FILL);
     g.popMatrix();
   }
 
@@ -214,6 +211,7 @@ public:
 
 int main() {
   SpaceApp app;
+  app.displayMode(app.displayMode() | Window::STEREO_BUF);
   app.print();
   app.start();
 }
