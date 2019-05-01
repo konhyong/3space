@@ -1,0 +1,43 @@
+broadcastAddress = "192.168.0.255"
+[[node]]
+  host = "gr01"
+  role = "simulator"
+[[node]]
+  host = "gr02"
+  role = "renderer"
+[[node]]
+  host = "gr03"
+  role = "renderer"
+[[node]]
+  host = "gr04"
+  role = "renderer"
+[[node]]
+  host = "gr05"
+  role = "renderer"
+[[node]]
+  host = "gr06"
+  role = "renderer"
+[[node]]
+  host = "gr07"
+  role = "renderer"
+[[node]]
+  host = "gr08"
+  role = "renderer"
+[[node]]
+  host = "gr09"
+  role = "renderer"
+[[node]]
+  host = "gr10"
+  role = "renderer"
+[[node]]
+  host = "gr11"
+  role = "renderer"
+[[node]]
+  host = "gr12"
+  role = "renderer"
+[[node]]
+  host = "gr13"
+  role = "renderer"
+[[node]]
+  host = "gr14"
+  role = "renderer"

@@ -18,6 +18,7 @@ struct State {
   Mat4f camera;
   int activeGroup;
   float scale;
+  int depth;
   bool showStatic;
   bool showOrigin;
 };
@@ -47,6 +48,7 @@ public:
     state().scale = 1.f;
     state().showStatic = true;
     state().showOrigin = true;
+    state().depth = 2;
 
     int Nv;
     Nv = addTetrahedron(tetra, 0.5);
@@ -201,5 +203,6 @@ public:
 
 int main() {
   SpaceApp app;
+  app.print();
   app.start();
 }

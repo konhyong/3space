@@ -91,28 +91,34 @@ struct Generator {
     depths.push_back(count);
 
     int idx = 0;
-    for (int d = 0; d < maxDepth; ++d) {
+    for(int d = 0; d < maxDepth; ++d) {
       int oldIdx = idx;
       idx = transforms.size();
 
-      for (int i = oldIdx; i < idx; ++i) {
-        for (int j = 0; j < gen.size(); ++j) {
+      bool depthChange = false;
+      
+      for(int i = oldIdx; i < idx; ++i) {
+        for(int j = 0; j < gen.size(); ++j) {
           Mat4f& old = transforms[i];
           Mat4f newTrans = gen[j] * old;
           
           bool unique = true;
 
-          for (int k = 0; k < transforms.size(); ++k) {
-            if (isSameMat(newTrans, transforms[k])) {
+          for(int k = 0; k < transforms.size(); ++k) {
+            if(isSameMat(newTrans, transforms[k])) {
               unique = false;
               break;
             }
           }
-          if (unique) {
+          if(unique) {
             transforms.push_back(newTrans);
             count += 1;
+            depthChange = true;
           }
         }
+      }
+
+      if(depthChange) {
         depths.push_back(count);
       }
     }
@@ -138,7 +144,7 @@ struct Group {
       1, 1, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1);
-    generators.emplace_back(a, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, 6, GroupType::EUCLEADIAN);
 
     // t2 * r
     a = Mat4f(
@@ -151,7 +157,7 @@ struct Group {
       0, 1, 0, 0,
       1, 0, 1, 0,
       0, 0, 0, 1);
-    generators.emplace_back(a, b, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, b, 6, GroupType::EUCLEADIAN);
 
     // 3-Torus;
     a = Mat4f(
@@ -169,7 +175,7 @@ struct Group {
       0, 1, 0, 0,
       0, 0, 1, 0,
       1, 0, 0, 1);
-    generators.emplace_back(a, b, c, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, b, c, 6, GroupType::EUCLEADIAN);
 
     // k2 * r
     a = Mat4f(
@@ -182,7 +188,7 @@ struct Group {
       1, 1, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1);
-    generators.emplace_back(a, b, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, b, 6, GroupType::EUCLEADIAN);
 
     //k2 * s1
     a = Mat4f(
@@ -200,7 +206,7 @@ struct Group {
       0, 1, 0, 0,
       0, 0, 1, 0,
       1, 0, 0, 1);
-    generators.emplace_back(a, b, c, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, b, c, 6, GroupType::EUCLEADIAN);
 
     // Half-Twist Cube
     a = Mat4f(
@@ -218,7 +224,7 @@ struct Group {
       0, 1, 0, 0,
       0, 0, 1, 0,
       1, 0, 0, 1);
-    generators.emplace_back(a, b, c, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, b, c, 6, GroupType::EUCLEADIAN);
 
     //Half-Twist Chimney
     a = Mat4f(
@@ -231,7 +237,7 @@ struct Group {
       1, 1, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1);
-    generators.emplace_back(a, b, 4, GroupType::EUCLEADIAN);
+    generators.emplace_back(a, b, 6, GroupType::EUCLEADIAN);
 
     // Binary Tetrahedral
     a = 0.5f * Mat4f(
@@ -286,7 +292,7 @@ struct Group {
       2.0, 1.0, -2.0, 0.0,
       2.0, 2.0, -1.0, 0.0,
       0.0, 0.0, 0.0, 1.0);
-    generators.emplace_back(a, b, 8, GroupType::HYPERBOLIC);
+    generators.emplace_back(a, b, 10, GroupType::HYPERBOLIC);
 
     // Figure 8 knot complement
     a = Mat4f(
@@ -300,7 +306,7 @@ struct Group {
       -sqrt(3)/2.0, 0.0, 1.0, -sqrt(3)/2.0,
       -0.5, -0.5, sqrt(3)/2.0, 0.5);
 
-    generators.emplace_back(a, b, 8, GroupType::HYPERBOLIC);
+    generators.emplace_back(a, b, 10, GroupType::HYPERBOLIC);
 
     cout << "** Generated " << generators.size() << " groups." << endl;
   }
