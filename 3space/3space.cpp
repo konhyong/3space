@@ -224,10 +224,8 @@ public:
 
 int main() {
   SpaceApp app;
-  if(app.hasRole(DistributedApp<State>::ROLE_RENDERER)) {
-    app.stereo(true);
-    app.displayMode(app.displayMode() | Window::STEREO_BUF);
-  }
+  app.stereo(true);
+  app.displayMode(app.displayMode() | Window::STEREO_BUF);
   app.print();
   app.start();
 }
