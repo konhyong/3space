@@ -1,0 +1,6 @@
+[submodule "allolib"]
+	path = allolib
+	url = https://github.com/AlloSphere-Research-Group/allolib.git
+[submodule "cuttlebone"]
+	path = cuttlebone
+	url = https://github.com/rbtsx/cuttlebone.git
