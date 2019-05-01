@@ -82,6 +82,9 @@ public:
 
     buffer.data(groups[state().activeGroup].transforms.size() * sizeof(Mat4f), groups[state().activeGroup].transforms.data());
     buffer.unbind();
+
+    if(hasRole(ROLE_SIMULATOR))
+      stereo(false);
   }
 
   void updateCamera() {
