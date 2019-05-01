@@ -133,9 +133,9 @@ public:
 
     g.pushMatrix();
       g.shader(main_shader);
-      
-      s.uniform("eye_sep", mLens.eyeSep() * mEye / 2.0f);
-      s.uniform("foc_len", mLens.focalLength());
+
+      s.uniform("eye_sep", lens().eyeSep() * pp_render.current_eye / 2.0f);
+      s.uniform("foc_len", lens().focalLength());
 
       g.shader().uniform("camera", state().camera);
       g.shader().uniform("scale", state().scale);
