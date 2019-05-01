@@ -15,6 +15,7 @@ const std::string shader_frag =
 ;
 
 struct State {
+  Pose pose;
   Mat4f camera;
   int activeGroup;
   float scale;
@@ -42,6 +43,7 @@ public:
     theta = phi = 0;
     changeTheta = changePhi = changeScale = 0;
 
+    state().pose = nav();
     state().camera.setIdentity();
     state().activeGroup = 0;
     currentGroup = -1;
@@ -105,17 +107,19 @@ public:
 
     if(changeScale > 0) state().scale += 0.01;
     else if(changeScale < 0) state().scale -= 0.01;
+
+    state().pose = nav();
   }
 
   void onAnimate(double dt){
+    nav().set(state().pose);
+
     if(currentGroup != state().activeGroup) {
       buffer.bind();
       buffer.data(groups[state().activeGroup].transforms.size() * sizeof(Mat4f), groups[state().activeGroup].transforms.data());
       buffer.unbind();
 
       currentGroup = state().activeGroup;
-
-      cout << "showing group: " << currentGroup << endl;
     }
   }
 
