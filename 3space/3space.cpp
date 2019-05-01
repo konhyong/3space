@@ -135,7 +135,7 @@ public:
       g.shader(main_shader);
       
       if(render_stereo) {
-        float e = pp_render.current_eye? -1 : 1;
+        float e = pp_render.current_eye? 1 : -1;
         g.shader().uniform("is_omni", 1.f);
         g.shader().uniform("eye_sep", lens().eyeSep() * e / 2.0f);
         g.shader().uniform("foc_len", lens().focalLength());
