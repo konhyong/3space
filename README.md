@@ -8,6 +8,7 @@ Project to visualize and experiment various curved three dimensional spaces
   To install required files, run:
 
 git submodule init
+git submodule foreach --recursive git submodule init
 git submodule update --recursive
 
 
