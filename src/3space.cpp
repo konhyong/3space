@@ -124,7 +124,7 @@ class SpaceApp : public DistributedAppWithState<State> {
 
   void onAnimate(double dt)
   {
-    if (hasCapability(CAP_RENDERING)) {
+    if (!isPrimary()) {
       nav().set(state().pose);
     }
 
